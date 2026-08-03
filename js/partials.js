@@ -24,7 +24,7 @@
       var cls = item[0] === active ? ' class="active"' : '';
       var absUrl = 'https://ak-traders-roan.vercel.app/' + item[0];
       return '<a href="'+absUrl+'" data-i18n="'+item[2]+'"'+cls+'>'+item[1]+'</a>';
-    }).join("");
+    }).join('');
     return (
     '<div class="loader"><svg class="loader-mark" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">' +
       '<circle cx="22" cy="22" r="21" fill="#FAF7EE"/>' +
@@ -35,21 +35,34 @@
         '<a href="index.html" class="brand">' + LEAF_MARK +
           '<span class="brand-text">AK TRADERS<span data-i18n="brand.tagline">Growing Together</span></span>' +
         '</a>' +
-        '<div class="nav-links">' + links + '</div>' +
-        '<div style="display:flex;align-items:center;gap:12px;">' +
-          '<div class="lang-switcher" aria-label="Language selector">' +
-            '<button type="button" class="lang-btn" data-lang="en">EN</button>' +
-            '<button type="button" class="lang-btn" data-lang="ta">தமிழ்</button>' +
+        '<div class="nav-links">' +
+          links +
+          '<div class="nav-drawer-extras">' +
+            '<div class="lang-switcher" aria-label="Language selector">' +
+              '<button type="button" class="lang-btn" data-lang="en">EN</button>' +
+              '<button type="button" class="lang-btn" data-lang="ta">\u0ba4\u0bae\u0bbf\u0bb4\u0bcd</button>' +
+            '</div>' +
+            '<button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">' +
+              '<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 12.6A9 9 0 1 1 11.4 3a7 7 0 0 0 9.6 9.6Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Dark Mode' +
+            '</button>' +
+            '<a href="https://ak-traders-roan.vercel.app/contact.html" class="btn btn-gold" style="width:100%;justify-content:center;margin-top:8px;" data-i18n="header.contact_cta">Get In Touch</a>' +
           '</div>' +
-          '<button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">' +
+        '</div>' +
+        '<div style="display:flex;align-items:center;gap:12px;">' +
+          '<div class="lang-switcher nav-desktop-only" aria-label="Language selector">' +
+            '<button type="button" class="lang-btn" data-lang="en">EN</button>' +
+            '<button type="button" class="lang-btn" data-lang="ta">\u0ba4\u0bae\u0bbf\u0bb4\u0bcd</button>' +
+          '</div>' +
+          '<button class="theme-toggle nav-desktop-only" aria-label="Toggle dark mode" title="Toggle dark mode">' +
             '<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 12.6A9 9 0 1 1 11.4 3a7 7 0 0 0 9.6 9.6Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
           '</button>' +
-          '<a href="contact.html" class="nav-cta" data-i18n="header.contact_cta">Get In Touch</a>' +
+          '<a href="https://ak-traders-roan.vercel.app/contact.html" class="nav-cta" data-i18n="header.contact_cta">Get In Touch</a>' +
           '<button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>' +
         '</div>' +
       '</nav>' +
     '</header>'
     );
+
   }
 
   function footerHTML(){
