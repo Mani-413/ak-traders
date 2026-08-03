@@ -6,7 +6,7 @@
 
   document.addEventListener("DOMContentLoaded", function(){
     initLoader();
-    initNav();
+    // initNav will be called after header is mounted
     initReveal();
     initFAQ();
     initDarkMode();
@@ -15,6 +15,9 @@
     initLanguage();
     initActiveLink();
     initCounters();
+    // Listen for header mount to initialize navigation drawer
+    window.addEventListener('akHeaderMounted', initNav);
+
   });
   window.addEventListener('akHeaderMounted', function(){ initLanguage(); initActiveLink(); });
   window.addEventListener('akFooterMounted', initLanguage);
@@ -28,14 +31,25 @@
   }
 
   function initNav(){
-    var toggle = document.querySelector(".nav-toggle");
-    var links = document.querySelector(".nav-links");
-    if(!toggle || !links) return;
-    toggle.addEventListener("click", function(){
-      links.classList.toggle("open");
+    console.log('initNav executed');
+    var toggle = document.querySelector('.nav-toggle');
+    var links = document.querySelector('.nav-links');
+    if(!toggle || !links){ console.warn('Toggle or links not found'); return; }
+    toggle.addEventListener('click', function(){
+      links.classList.toggle('open');
+      console.log('Toggle clicked, open class now', links.classList.contains('open'));
     });
-    links.querySelectorAll("a").forEach(function(a){
-      a.addEventListener("click", function(){ links.classList.remove("open"); });
+    links.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){ links.classList.remove('open'); console.log('Link clicked, closing nav'); });
+    });
+    // Close when clicking outside
+    document.addEventListener('click', function(e){
+      // If click is on toggle or any of its children, ignore
+      if(e.target.closest && e.target.closest('.nav-toggle')) return;
+      if(!links.contains(e.target)){
+        if(links.classList.contains('open')){ console.log('Outside click, closing nav'); }
+        links.classList.remove('open');
+      }
     });
   }
 

@@ -22,7 +22,8 @@
   function headerHTML(active){
     var links = NAV_ITEMS.map(function(item){
       var cls = item[0] === active ? ' class="active"' : '';
-      return '<a href="'+item[0]+'" data-i18n="'+item[2]+'"'+cls+'>'+item[1]+'</a>';
+      var absUrl = 'https://ak-traders-roan.vercel.app/' + item[0];
+      return '<a href="'+absUrl+'" data-i18n="'+item[2]+'"'+cls+'>'+item[1]+'</a>';
     }).join("");
     return (
     '<div class="loader"><svg class="loader-mark" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">' +
