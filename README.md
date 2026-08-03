@@ -1,4 +1,4 @@
-# AK TRADERS — "Growing Together"
+# AK TRADERS — "Growing Together" (updated)
 
 Full-stack website + admin dashboard for **AK Traders**, an agricultural produce
 procurement and distribution company based in Veeraganur, Tamil Nadu.

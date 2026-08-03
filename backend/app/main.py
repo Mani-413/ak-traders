@@ -32,11 +32,12 @@ app.add_middleware(
 
 app_dir = Path(__file__).resolve().parent
 static_dir = app_dir / "static"
-frontend_dir = Path(__file__).resolve().parents[1].parent / "frontend"
+project_root = Path(__file__).resolve().parents[2]
 
 os.makedirs(settings.upload_dir, exist_ok=True)
 app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
-app.mount("/frontend", StaticFiles(directory=str(frontend_dir), html=True), name="frontend")
+# Serve all other static assets (css, js, assets) from the project root
+app.mount("/", StaticFiles(directory=str(project_root), html=True), name="static_root")
 
 app.include_router(auth.router)
 app.include_router(products.router)
@@ -65,7 +66,8 @@ def seed_default_admin():
 
 @app.get("/", include_in_schema=False)
 def root():
-    return RedirectResponse(url="/frontend/")
+    # Redirect to the main index page located at the project root
+    return RedirectResponse(url="/index.html")
 
 
 @app.get("/api/health", tags=["Health"])
