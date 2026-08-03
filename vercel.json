@@ -6,14 +6,15 @@
       "use": "@vercel/static"
     }
   ],
+  "outputDirectory": "frontend",
   "routes": [
     {
       "src": "^/$",
-      "dest": "/frontend/index.html"
+      "dest": "/index.html"
     },
     {
       "src": "^/(.*)$",
-      "dest": "/frontend/$1"
+      "dest": "/$1"
     }
   ]
 }
