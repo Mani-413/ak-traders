@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Growth &amp; Turnover | AK Traders</title>
+<meta name="description" content="AK Traders' projected revenue growth from 2026 to 2032, targeting a ₹2 Crore ultimate goal.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+<main id="main">
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow" data-i18n="turnover.hero.eyebrow">Growth Targets</span>
+      <h1 data-i18n-html="turnover.hero.title">From ₹42 Lakhs<br>toward ₹2 Crore.</h1>
+      <p data-i18n="turnover.hero.lead">A steady, year-on-year revenue plan — built on wider procurement and deeper distribution reach.</p>
+    </div>
+  </section>
+  <div class="furrow"></div>
+
+  <section>
+    <div class="container">
+      <div class="chart-wrap reveal">
+        <div class="chart-bars" id="chart-bars">
+          <div class="bar-col"><span class="bar-val">₹42L</span><div class="bar" data-h="21"></div><span class="bar-year">2026</span></div>
+          <div class="bar-col"><span class="bar-val">₹62L</span><div class="bar" data-h="31"></div><span class="bar-year">2027</span></div>
+          <div class="bar-col"><span class="bar-val">₹85L</span><div class="bar" data-h="42.5"></div><span class="bar-year">2028</span></div>
+          <div class="bar-col"><span class="bar-val">₹100L</span><div class="bar" data-h="50"></div><span class="bar-year">2029</span></div>
+          <div class="bar-col"><span class="bar-val">₹150L</span><div class="bar" data-h="75"></div><span class="bar-year">2031</span></div>
+          <div class="bar-col"><span class="bar-val">₹200L</span><div class="bar" data-h="100"></div><span class="bar-year">2032</span></div>
+        </div>
+      </div>
+
+      <div class="goal-banner reveal">
+        <div>
+          <span class="eyebrow" style="color:#E4BE3C;">Ultimate goal</span>
+          <h3 style="color:#FAF7EE;font-size:22px;">Crossing into national-scale distribution</h3>
+        </div>
+        <div class="num">₹2 Crore Revenue</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+<script src="js/partials.js"></script>
+<script src="js/main.js"></script>
+<script>
+  AK.mountHeader('turnover.html'); AK.mountFooter();
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        document.querySelectorAll('#chart-bars .bar').forEach(function(bar){
+          bar.style.height = bar.dataset.h + '%';
+        });
+        io.disconnect();
+      }
+    });
+  }, {threshold:.3});
+  io.observe(document.getElementById('chart-bars'));
+</script>
+</body>
+</html>
