@@ -116,9 +116,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .nav-toggle span{display:block;width:24px;height:2px;background:var(--green-900);margin:5px 0;transition:.25s;}
 
 @media (max-width:920px){
+  /* Hide nav-links completely on mobile — only show inside drawer when .open */
   .nav-links{
+    display:none;
     position:fixed;
-    inset:0 auto 0 0; /* left side */
+    inset:0 auto 0 0;
     width:280px;
     max-width:85%;
     height:100vh;
@@ -127,13 +129,18 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
     align-items:flex-start;
     padding:28px 20px;
     gap:4px;
-    transform:translateX(-100%);
-    transition:transform .35s var(--ease);
     border-right:1px solid var(--line);
     overflow-y:auto;
     z-index:200;
+    box-shadow:4px 0 24px rgba(18,51,23,0.18);
+    /* slide-in animation when open class is added */
+    transform:translateX(-100%);
+    transition:transform .35s var(--ease);
   }
-  .nav-links.open{transform:translateX(0);}
+  .nav-links.open{
+    display:flex;
+    transform:translateX(0);
+  }
   .nav-links a{width:100%;padding:12px 0;border-bottom:1px solid var(--line);}
   .nav-links a:last-of-type{border-bottom:none;}
   .nav-toggle{display:block;}
