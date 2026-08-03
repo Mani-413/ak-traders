@@ -1,0 +1,1 @@
+<!-- Reserved for server-rendered admin views if the JSON API + static admin.html is later replaced with Jinja2 templates. -->
