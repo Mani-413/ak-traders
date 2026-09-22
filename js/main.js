@@ -15,12 +15,22 @@
     initLanguage();
     initActiveLink();
     initCounters();
+    initSoapPage();
+    initContactLinks();
     // Listen for header mount to initialize navigation drawer
     window.addEventListener('akHeaderMounted', initNav);
 
   });
   window.addEventListener('akHeaderMounted', function(){ initLanguage(); initActiveLink(); });
   window.addEventListener('akFooterMounted', initLanguage);
+
+  function initContactLinks(){
+    document.querySelectorAll('a[aria-label="WhatsApp"]').forEach(function(link){
+      link.href = 'https://wa.me/919597840345';
+      link.target = '_blank';
+      link.rel = 'noopener';
+    });
+  }
 
   function initLoader(){
     var loader = document.querySelector(".loader");
@@ -610,6 +620,83 @@
     var lang = document.documentElement.lang || 'en';
     var strings = TRANSLATIONS[lang] || TRANSLATIONS.en;
     return strings[key] || TRANSLATIONS.en[key] || '';
+  }
+
+  function buildWhatsAppLink(rawPhone, message){
+    var digits = String(rawPhone || '').replace(/\D/g, '');
+    if(!digits){ return '#'; }
+    var number = digits.startsWith('0') ? digits.slice(1) : digits;
+    var base = 'https://wa.me/' + number;
+    var text = message || 'Hi AK Traders, I am a client and need fresh vegetables and soap details. Please share the current stock and rates.';
+    return base + '?text=' + encodeURIComponent(text);
+  }
+
+  function formatPhone(rawPhone){
+    var text = String(rawPhone || '').trim();
+    if(!text) return '—';
+    return text;
+  }
+
+  function getSoapContact(){
+    try{
+      var saved = JSON.parse(localStorage.getItem('ak_soap_contact') || 'null');
+      if(saved && saved.phone) return saved;
+    }catch(e){}
+    return {
+      phone: '+91 95978 40345',
+      email: 'aktraders.vegetables@gmail.com'
+    };
+  }
+
+  function getVegetableData(){
+    try{
+      var saved = JSON.parse(localStorage.getItem('ak_soap_vegetables') || 'null');
+      if(Array.isArray(saved) && saved.length) return saved;
+    }catch(e){}
+    return [
+      { name: 'Onion', availability: 'Available', rate: '₹32 / kg', note: 'Andhra + Karnataka' },
+      { name: 'Tomato', availability: 'Available', rate: '₹35 / kg', note: 'Fresh harvest' },
+      { name: 'Potato', availability: 'Available', rate: '₹28 / kg', note: 'Madhya Pradesh' },
+      { name: 'Garlic', availability: 'Available', rate: '₹90 / kg', note: 'Graded stock' },
+      { name: 'Ginger', availability: 'Available', rate: '₹110 / kg', note: 'Kerala supply' },
+      { name: 'Bathing Soap', availability: 'Available', rate: '₹58 / piece', note: 'Retail & bulk orders' }
+    ];
+  }
+
+  function initSoapPage(){
+    var page = document.querySelector('[data-soap-page]');
+    if(!page) return;
+    var contact = getSoapContact();
+    var rows = getVegetableData();
+    var phoneEl = document.getElementById('seller-phone');
+    var emailEl = document.getElementById('seller-email');
+    var whatsappEl = document.getElementById('seller-whatsapp');
+    var table = document.getElementById('soap-rate-table');
+    var meta = document.getElementById('soap-meta');
+
+    if(phoneEl){
+      phoneEl.textContent = formatPhone(contact.phone);
+      phoneEl.href = 'tel:' + String(contact.phone).replace(/\s+/g, '');
+    }
+    if(emailEl){
+      emailEl.textContent = contact.email;
+      emailEl.href = 'mailto:' + contact.email;
+    }
+    if(whatsappEl){
+      whatsappEl.href = buildWhatsAppLink(contact.phone, 'Hi AK Traders, I am a client and need the bathing soap and vegetable stock details. Please share the current stock and today’s rates.');
+    }
+    if(meta){
+      meta.innerHTML = [
+        '<div class="meta-card"><span>Category</span><strong>Bathing Soap</strong></div>',
+        '<div class="meta-card"><span>Availability</span><strong>Fresh stock</strong></div>',
+        '<div class="meta-card"><span>Delivery</span><strong>Daily routes</strong></div>'
+      ].join('');
+    }
+    if(table){
+      table.innerHTML = rows.map(function(item){
+        return '<tr><td>' + item.name + '</td><td>' + (item.availability || 'Available') + '</td><td>' + (item.rate || '—') + '</td><td>' + (item.note || '') + '</td></tr>';
+      }).join('');
+    }
   }
 
   function initNewsletter(){

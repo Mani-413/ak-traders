@@ -1,6 +1,20 @@
 {
   "version": 2,
+  "cleanUrls": true,
   "builds": [
     { "src": "**/*", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/soap", "dest": "/soap.html" },
+    { "src": "/soup", "dest": "/soap.html" },
+    { "src": "/soapp", "dest": "/soap.html" },
+    { "src": "/products", "dest": "/products.html" },
+    { "src": "/about", "dest": "/about.html" },
+    { "src": "/contact", "dest": "/contact.html" },
+    { "src": "/distribution", "dest": "/distribution.html" },
+    { "src": "/procurement", "dest": "/procurement.html" },
+    { "src": "/roadmap", "dest": "/roadmap.html" },
+    { "src": "/turnover", "dest": "/turnover.html" },
+    { "src": "/admin", "dest": "/admin.html" }
   ]
 }

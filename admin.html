@@ -34,6 +34,7 @@
     <nav class="a-nav">
       <button data-view="dashboard" class="active">📊 Dashboard</button>
       <button data-view="products">🧅 Products</button>
+      <button data-view="soap">🧼 Soap / Stock</button>
       <button data-view="gallery">🖼️ Gallery</button>
       <button data-view="messages">✉️ Contact Messages</button>
       <button data-view="enquiries">📋 Enquiries</button>
@@ -80,6 +81,24 @@
       <div class="a-panel">
         <table class="a-table"><thead><tr><th>Product</th><th>Badge</th><th>Availability</th><th>Actions</th></tr></thead>
         <tbody id="products-table"></tbody></table>
+      </div>
+    </section>
+
+    <!-- SOAP / STOCK -->
+    <section class="a-view" id="view-soap">
+      <div class="a-topbar"><div><h2>Soap &amp; Vegetable Stock</h2><p>Update seller contact details and vegetable prices for the public soap page.</p></div></div>
+      <div class="a-panel">
+        <h3>Seller contact</h3>
+        <div class="a-form-grid">
+          <div><label>Phone Number</label><input id="soap-phone"></div>
+          <div><label>Email</label><input id="soap-email"></div>
+        </div>
+        <button class="a-btn" id="save-soap-contact-btn">Save Contact</button>
+      </div>
+      <div class="a-panel">
+        <h3>Vegetable availability &amp; today rate</h3>
+        <textarea id="soap-vegetables-json" rows="16" style="width:100%;font-family:var(--font-mono);"></textarea>
+        <button class="a-btn" id="save-veg-btn" style="margin-top:10px;">Save Vegetable List</button>
       </div>
     </section>
 

@@ -6,6 +6,20 @@
   var TOKEN_KEY = "ak_admin_token";
   var demoMode = false;
 
+  var defaultSoapContact = {
+    phone: "+91 95978 40345",
+    email: "aktraders.vegetables@gmail.com"
+  };
+
+  var defaultSoapVegetables = [
+    { name: "Onion", availability: "Available", rate: "₹32 / kg", note: "Andhra + Karnataka" },
+    { name: "Tomato", availability: "Available", rate: "₹35 / kg", note: "Fresh harvest" },
+    { name: "Potato", availability: "Available", rate: "₹28 / kg", note: "Madhya Pradesh" },
+    { name: "Garlic", availability: "Available", rate: "₹90 / kg", note: "Graded stock" },
+    { name: "Ginger", availability: "Available", rate: "₹110 / kg", note: "Kerala supply" },
+    { name: "Bathing Soap", availability: "Available", rate: "₹58 / piece", note: "Retail & bulk orders" }
+  ];
+
   var demoData = {
     products: [
       {id:1,name:"Onion",emoji:"🧅",badge:"Fresh Quality",avail:"Available",desc:"Firm, well-cured bulbs sourced from Andhra Pradesh, Karnataka and Madhya Pradesh."},
@@ -82,6 +96,7 @@
   function enterDashboard(){
     document.getElementById("login-screen").style.display = "none";
     document.getElementById("admin-shell").classList.add("active");
+    populateSoapSettings();
     loadAll();
   }
 
@@ -125,6 +140,60 @@
       return "<tr><td>"+esc(m.name)+"</td><td>"+esc(m.phone)+"</td><td>"+esc(m.message)+"</td><td>"+esc(m.created_at||"")+"</td></tr>";
     }).join("");
     document.getElementById("dash-recent").innerHTML = rows || emptyRow(4,"No messages yet.");
+  }
+
+  function getSoapContact(){
+    try{
+      var value = JSON.parse(localStorage.getItem("ak_soap_contact") || "null");
+      if(value && value.phone) return value;
+    }catch(e){}
+    return defaultSoapContact;
+  }
+
+  function getSoapVegetables(){
+    try{
+      var value = JSON.parse(localStorage.getItem("ak_soap_vegetables") || "null");
+      if(Array.isArray(value) && value.length) return value;
+    }catch(e){}
+    return defaultSoapVegetables;
+  }
+
+  function populateSoapSettings(){
+    var phoneInput = document.getElementById("soap-phone");
+    var emailInput = document.getElementById("soap-email");
+    var jsonBox = document.getElementById("soap-vegetables-json");
+    var contact = getSoapContact();
+    if(phoneInput) phoneInput.value = contact.phone || defaultSoapContact.phone;
+    if(emailInput) emailInput.value = contact.email || defaultSoapContact.email;
+    if(jsonBox) jsonBox.value = JSON.stringify(getSoapVegetables(), null, 2);
+  }
+
+  var soapContactBtn = document.getElementById("save-soap-contact-btn");
+  if(soapContactBtn){
+    soapContactBtn.addEventListener("click", function(){
+      var phoneInput = document.getElementById("soap-phone");
+      var emailInput = document.getElementById("soap-email");
+      var phone = phoneInput ? phoneInput.value.trim() : "";
+      var email = emailInput ? emailInput.value.trim() : "";
+      if(!phone || !email){ toast("Phone and email are required"); return; }
+      localStorage.setItem("ak_soap_contact", JSON.stringify({phone: phone, email: email}));
+      toast("Seller contact saved");
+    });
+  }
+
+  var saveVegBtn = document.getElementById("save-veg-btn");
+  if(saveVegBtn){
+    saveVegBtn.addEventListener("click", function(){
+      var box = document.getElementById("soap-vegetables-json");
+      try{
+        var parsed = JSON.parse(box.value);
+        if(!Array.isArray(parsed) || !parsed.length){ throw new Error("invalid"); }
+        localStorage.setItem("ak_soap_vegetables", JSON.stringify(parsed));
+        toast("Vegetable list saved");
+      }catch(e){
+        toast("Use valid JSON array for vegetables");
+      }
+    });
   }
 
   // ---------- PRODUCTS ----------

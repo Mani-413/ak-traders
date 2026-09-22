@@ -31,6 +31,7 @@ class ProductBase(BaseModel):
     badge: str = "Fresh Quality"
     avail: str = "Available"
     desc: str = ""
+    price: str = ""
 
 
 class ProductCreate(ProductBase):
@@ -43,6 +44,7 @@ class ProductUpdate(BaseModel):
     badge: Optional[str] = None
     avail: Optional[str] = None
     desc: Optional[str] = None
+    price: Optional[str] = None
 
 
 class ProductOut(ProductBase):

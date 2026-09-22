@@ -32,12 +32,11 @@ app.add_middleware(
 
 app_dir = Path(__file__).resolve().parent
 static_dir = app_dir / "static"
-project_root = Path(__file__).resolve().parents[2]
-
-os.makedirs(settings.upload_dir, exist_ok=True)
-app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
-# Serve all other static assets (css, js, assets) from the project root
-app.mount("/", StaticFiles(directory=str(project_root), html=True), name="static_root")
+# In Docker: HTML/CSS/JS are at /app/ (one level above /app/backend/)
+# Locally: they are two levels up from backend/app/main.py
+# Use STATIC_ROOT env var if set, otherwise auto-detect
+_default_root = Path(__file__).resolve().parents[2]
+project_root = Path(os.environ.get("STATIC_ROOT", str(_default_root)))
 
 app.include_router(auth.router)
 app.include_router(products.router)
@@ -73,3 +72,9 @@ def root():
 @app.get("/api/health", tags=["Health"])
 def health():
     return {"status": "healthy"}
+
+
+os.makedirs(settings.upload_dir, exist_ok=True)
+app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
+# Serve all other static assets (css, js, assets) from the project root
+app.mount("/", StaticFiles(directory=str(project_root), html=True), name="static_root")

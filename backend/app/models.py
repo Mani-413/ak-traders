@@ -1,7 +1,7 @@
 """SQLAlchemy ORM models for AK Traders."""
-from datetime import datetime
+from datetime import datetime, date
 
-from sqlalchemy import String, Text, DateTime, Boolean, Integer
+from sqlalchemy import String, Text, DateTime, Boolean, Integer, Float, Date, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.database import Base
@@ -26,6 +26,7 @@ class Product(Base):
     badge: Mapped[str] = mapped_column(String(64), default="Fresh Quality")
     avail: Mapped[str] = mapped_column(String(32), default="Available")
     desc: Mapped[str] = mapped_column(Text, default="")
+    price: Mapped[str] = mapped_column(String(64), default="")
     image_path: Mapped[str] = mapped_column(String(255), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
