@@ -1,0 +1,13 @@
+node_portable
+node_portable/
+backend/
+backend/venv/
+venv/
+*.db
+*.log
+.git
+.vscode
+.dockerignore
+Dockerfile
+render.yaml
+docker-compose.yml

@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: ak-traders
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: DATABASE_URL
+        value: sqlite:///./ak_traders.db
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: JWT_ALGORITHM
+        value: HS256
+      - key: JWT_EXPIRE_MINUTES
+        value: "120"
+      - key: DEFAULT_ADMIN_USERNAME
+        value: admin
+      - key: DEFAULT_ADMIN_PASSWORD
+        value: admin123
+      - key: CORS_ORIGINS
+        value: https://ak-traders.onrender.com
+      - key: STATIC_ROOT
+        value: /app
