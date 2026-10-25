@@ -4,7 +4,6 @@ from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
 from app.config import settings
@@ -38,6 +37,7 @@ static_dir = app_dir / "static"
 _default_root = Path(__file__).resolve().parents[2]
 project_root = Path(os.environ.get("STATIC_ROOT", str(_default_root)))
 
+# ── Routers (API routes) ────────────────────────────────────────────────────
 app.include_router(auth.router)
 app.include_router(products.router)
 app.include_router(gallery.router)
@@ -63,18 +63,15 @@ def seed_default_admin():
         db.close()
 
 
-@app.get("/", include_in_schema=False)
-def root():
-    # Redirect to the main index page located at the project root
-    return RedirectResponse(url="/index.html")
-
-
 @app.get("/api/health", tags=["Health"])
 def health():
     return {"status": "healthy"}
 
 
+# ── Static file mounts — MUST come last ────────────────────────────────────
+# app.mount("/", ...) is a catch-all. If registered before API routes,
+# it intercepts everything and FastAPI's router never sees /api/* requests.
 os.makedirs(settings.upload_dir, exist_ok=True)
 app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
-# Serve all other static assets (css, js, assets) from the project root
+# Serve HTML/CSS/JS from project root. html=True auto-serves index.html at "/".
 app.mount("/", StaticFiles(directory=str(project_root), html=True), name="static_root")
