@@ -22,8 +22,7 @@
   function headerHTML(active){
     var links = NAV_ITEMS.map(function(item){
       var cls = item[0] === active ? ' class="active"' : '';
-      var absUrl = 'https://ak-traders-roan.vercel.app/' + item[0];
-      return '<a href="'+absUrl+'" data-i18n="'+item[2]+'"'+cls+'>'+item[1]+'</a>';
+      return '<a href="'+item[0]+'" data-i18n="'+item[2]+'"'+cls+'>'+item[1]+'</a>';
     }).join('');
     return (
     '<div class="loader"><svg class="loader-mark" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">' +
@@ -45,7 +44,7 @@
             '<button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">' +
               '<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 12.6A9 9 0 1 1 11.4 3a7 7 0 0 0 9.6 9.6Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Dark Mode' +
             '</button>' +
-            '<a href="https://ak-traders-roan.vercel.app/contact.html" class="btn btn-gold" style="width:100%;justify-content:center;margin-top:8px;" data-i18n="header.contact_cta">Get In Touch</a>' +
+            '<a href="contact.html" class="btn btn-gold" style="width:100%;justify-content:center;margin-top:8px;" data-i18n="header.contact_cta">Get In Touch</a>' +
           '</div>' +
         '</div>' +
         '<div style="display:flex;align-items:center;gap:12px;">' +
@@ -56,7 +55,7 @@
           '<button class="theme-toggle nav-desktop-only" aria-label="Toggle dark mode" title="Toggle dark mode">' +
             '<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 12.6A9 9 0 1 1 11.4 3a7 7 0 0 0 9.6 9.6Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
           '</button>' +
-          '<a href="https://ak-traders-roan.vercel.app/contact.html" class="nav-cta" data-i18n="header.contact_cta">Get In Touch</a>' +
+          '<a href="contact.html" class="nav-cta" data-i18n="header.contact_cta">Get In Touch</a>' +
           '<button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>' +
         '</div>' +
       '</nav>' +
@@ -78,7 +77,7 @@
             '<div class="social-row">' +
               '<a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-8h2.7l.4-3.2h-3.1V7.7c0-.9.3-1.6 1.6-1.6h1.6V3.3C15.9 3.2 14.9 3 13.7 3 11.2 3 9.5 4.5 9.5 7.4v2.4H7v3.2h2.5V21h4Z"/></svg></a>' +
               '<a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></a>' +
-              '<a href="#" aria-label="WhatsApp"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Zm0 1.8a7.2 7.2 0 1 1-3.9 13.3l-.3-.2-2.7.7.7-2.6-.2-.3A7.2 7.2 0 0 1 12 4.8Zm-2.4 3.4c-.2 0-.5 0-.7.3-.2.3-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.8 2.8 4.4 3.8 2.1.8 2.5.7 3 .6.4-.1 1.3-.5 1.5-1 .2-.5.2-1 .1-1.1-.1-.1-.3-.2-.6-.3-.3-.2-1.5-.8-1.8-.9-.2-.1-.4-.1-.6.1-.2.3-.6.9-.8 1-.1.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.2-.5.1-.2 0-.4 0-.5-.1-.1-.6-1.5-.8-2-.2-.5-.4-.4-.6-.4Z"/></svg></a>' +
+              '<a href="https://wa.me/919597840345?text=Hi%20AK%20Traders%2C%20I%20am%20interested%20in%20fresh%20vegetable%20and%20soap%20supply.%20Please%20share%20details." target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Zm0 1.8a7.2 7.2 0 1 1-3.9 13.3l-.3-.2-2.7.7.7-2.6-.2-.3A7.2 7.2 0 0 1 12 4.8Zm-2.4 3.4c-.2 0-.5 0-.7.3-.2.3-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.8 2.8 4.4 3.8 2.1.8 2.5.7 3 .6.4-.1 1.3-.5 1.5-1 .2-.5.2-1 .1-1.1-.1-.1-.3-.2-.6-.3-.3-.2-1.5-.8-1.8-.9-.2-.1-.4-.1-.6.1-.2.3-.6.9-.8 1-.1.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.2-.5.1-.2 0-.4 0-.5-.1-.1-.6-1.5-.8-2-.2-.5-.4-.4-.6-.4Z"/></svg></a>' +
             '</div>' +
           '</div>' +
           '<div><h4 data-i18n="footer.quick_links">Quick Links</h4><ul>' +
@@ -105,7 +104,7 @@
         '</div>' +
       '</div>' +
     '</footer>' +
-    '<a class="float-whatsapp" href="https://wa.me/910000000000" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">' +
+    '<a class="float-whatsapp" href="https://wa.me/919597840345" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">' +
       '<svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Zm0 1.8a7.2 7.2 0 1 1-3.9 13.3l-.3-.2-2.7.7.7-2.6-.2-.3A7.2 7.2 0 0 1 12 4.8Zm-2.4 3.4c-.2 0-.5 0-.7.3-.2.3-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.8 2.8 4.4 3.8 2.1.8 2.5.7 3 .6.4-.1 1.3-.5 1.5-1 .2-.5.2-1 .1-1.1-.1-.1-.3-.2-.6-.3-.3-.2-1.5-.8-1.8-.9-.2-.1-.4-.1-.6.1-.2.3-.6.9-.8 1-.1.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.2-.5.1-.2 0-.4 0-.5-.1-.1-.6-1.5-.8-2-.2-.5-.4-.4-.6-.4Z"/></svg>' +
     '</a>'
     );
