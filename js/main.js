@@ -22,11 +22,14 @@
 
   });
   window.addEventListener('akHeaderMounted', function(){ initLanguage(); initActiveLink(); });
-  window.addEventListener('akFooterMounted', initLanguage);
+  window.addEventListener('akFooterMounted', function(){
+    initLanguage();
+    initContactLinks();
+  });
 
   function initContactLinks(){
     document.querySelectorAll('a[aria-label="WhatsApp"]').forEach(function(link){
-      link.href = 'https://wa.me/919597840345';
+      link.href = 'https://wa.me/919597840345?text=' + encodeURIComponent('Hi AK Traders, I am interested in fresh vegetable and soap supply. Please share details.');
       link.target = '_blank';
       link.rel = 'noopener';
     });
@@ -624,9 +627,14 @@
 
   function buildWhatsAppLink(rawPhone, message){
     var digits = String(rawPhone || '').replace(/\D/g, '');
-    if(!digits){ return '#'; }
-    var number = digits.startsWith('0') ? digits.slice(1) : digits;
-    var base = 'https://wa.me/' + number;
+    if(!digits || digits.replace(/0/g, '') === ''){
+      digits = '919597840345';
+    } else if(digits.length === 10){
+      digits = '91' + digits;
+    } else if(digits.startsWith('0') && digits.length === 11){
+      digits = '91' + digits.slice(1);
+    }
+    var base = 'https://wa.me/' + digits;
     var text = message || 'Hi AK Traders, I am a client and need fresh vegetables and soap details. Please share the current stock and rates.';
     return base + '?text=' + encodeURIComponent(text);
   }
